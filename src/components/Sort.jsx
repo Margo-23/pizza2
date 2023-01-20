@@ -1,16 +1,33 @@
 import React from "react";
 
-function Sort({value, changeSort}) {
+function Sort({sortId, changeSort}) {
     const [togglePopup, setTogglePopup] = React.useState(false);    
     const sortNames = ['популярности', 'цене', 'алфавиту'];
+    const sortRef = React.useRef();
 
     function changeActiveSort(index) {
         changeSort(index);
         setTogglePopup(false);
     };
+//если нужно навесить сабытие на весь body в целом то можно и в реакте использовать такой метод
+    React.useEffect(()=>{
+        const handleClickOutside = (e)=>{
+            if(!e.composedPath().includes(sortRef.current)){
+                setTogglePopup(false);                
+            }
+        };
+
+        document.body.addEventListener('click', handleClickOutside);
+
+
+        //это дейтсвие в юсЭффекте происходит если элемент будет удален со страницы (т.е мы перейдем например в корзину где элемента Сорт нет)
+        return ()=>{
+            document.body.removeEventListener('click', handleClickOutside);
+           }
+    },[])
 
     return (
-        <div className="sort">
+        <div className="sort" ref={sortRef}>
             <div className="sort__label" onClick={() => { setTogglePopup(!togglePopup) }}>
                 <svg
                     width="10"
@@ -25,14 +42,14 @@ function Sort({value, changeSort}) {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span>{sortNames[value]}</span>
+                <span>{sortNames[sortId]}</span>
             </div>
 
             {
                 togglePopup && <div className='sort__popup'>
                     <ul>
                         {sortNames.map((item, index) => (
-                            <li key={index} className={value === index ? 'active' : ''} onClick={() => { changeActiveSort(index) }}>{item}</li>
+                            <li key={index} className={sortId === index ? 'active' : ''} onClick={() => { changeActiveSort(index) }}>{item}</li>
                         ))}
                     </ul>
                 </div>

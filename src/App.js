@@ -8,24 +8,24 @@ import NotFound from './pages/NotFound';
 
 // import pizzasJson from './assets/pizzas.json';
 
-
+export const SearchContext = React.createContext();
 
 function App() {
   const [searchValue, setSearchValue] = React.useState('');
-  console.log(searchValue);
+
 return(
+  <SearchContext.Provider value={{searchValue, setSearchValue}}>  
   <div className="wrapper">
-  <Header searchValue={searchValue} setSearchValue={setSearchValue}/>
+  <Header />
   <div className="content">
   <Routes>
-        <Route path="/" element={<Home searchValue={searchValue} />} />
+        <Route path="/" element={<Home />} />
         <Route path="cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
   </Routes>
-
-
 </div>
 </div>
+</SearchContext.Provider>
 
 
 )

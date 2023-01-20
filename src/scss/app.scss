@@ -335,7 +335,7 @@ body {
 
   &--empty {
     margin: 0 auto;
-    width: 560px;
+    max-width: 560px;
     text-align: center;
 
     h2 {
@@ -359,6 +359,10 @@ body {
       display: block;
       width: 300px;
       margin: 45px auto 60px;
+
+      @media(max-width: 480px){
+        width: 200px;
+      }
     }
 
     .button--black {

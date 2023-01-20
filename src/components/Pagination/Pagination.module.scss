@@ -1,0 +1,41 @@
+.root{
+    margin: 20px auto 2px auto;
+    text-align: center;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+
+    li{
+        margin: 0 5px;
+    border-radius: 50%;
+    background-color: #ffdf8c;
+    height: 26px;
+    width: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all .3s;
+    &:hover{
+        background-color: #fe5f1e;
+    }
+    }
+    :global{
+        .selected{
+            font-weight: 700;
+            background-color: #fe5f1e;
+        }
+        .previous, .next{
+            background: #fff;
+    border: 1px solid #fe5f1e;
+    font-weight: 700;
+    &:hover{
+        background: #fff;
+    }
+        }
+        .disabled{
+            opacity: 0.5;
+        }
+    }
+  
+}
